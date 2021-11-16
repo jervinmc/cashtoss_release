@@ -288,9 +288,10 @@ class Login(Resource):
             res = self.db.query(f"SELECT * FROM users where email='{data.get('email')}' and password='{data.get('password')}'")
             if(res==[]):
                 print(res)
-                return Response({"status":"Wrong Credentials"},status=404)
+                return {"status":"Wrong Credentials"}
             else:
-                return Response({"status":"success"},status=201)
+                
+                return {"status":"success","id":res[0][0],"email":res[0][1]}
             
         except Exception as e:
             print(e)
